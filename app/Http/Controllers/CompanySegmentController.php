@@ -68,7 +68,7 @@ class CompanySegmentController extends Controller {
                             $query->where($filter, filter_var($value, FILTER_VALIDATE_BOOLEAN));
                             break;
                         case 'limit':
-                            $query->where($filter, (int) $value);
+                            $query->limit((int) $value);
                             break;
                     }
                 }

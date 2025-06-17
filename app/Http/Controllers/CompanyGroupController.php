@@ -1,44 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\CompanyGroup;
 
-class UserController extends Controller {
+class CompanyGroupController extends Controller {
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name'      => 'required|string',
-            'email'     => 'required|string|email|unique:users,email',
-            'password'  => 'required|string',
-            'role'      => 'required|string'
+            'user_id' => [
+                'required',
+                'integer',
+                Rule::exists('users', 'id')->where('active', true)
+            ],
+            'name' => 'required|string'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Error on creating user.',
+                'message' => 'Error on creating company group.',
                 'errors'  => $validator->errors()
             ], 422, [], JSON_UNESCAPED_SLASHES);
         }
 
         try {
-            User::create([
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => Hash::make($request->password),
-                'role'      => $request->role
+
+            CompanyGroup::create([
+                'user_id' => $request->user_id,
+                'name'    => $request->name
             ]);
 
             return response()->json([
-                'message' => 'User created has successfully!'
+                'message' => 'Company group created has successfully!'
             ], 201, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on creating user.',
+                'message' => 'Error on creating company group.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -47,25 +47,23 @@ class UserController extends Controller {
     public function list(Request $request) {
         try {
             $filters = [
-                'id'     => $request->query('id'),
-                'name'   => $request->query('name'),
-                'email'  => $request->query('email'),
-                'role'   => $request->query('role'),
-                'active' => $request->query('active'),
-                'limit'  => $request->query('limit')
+                'id'      => $request->query('id'),
+                'user_id' => $request->query('user_id'),
+                'name'    => $request->query('name'),
+                'active'  => $request->query('active'),
+                'limit'   => $request->query('limit')
             ];
 
-            $query = User::query()->where('deleted', '<>', true);
+            $query = CompanyGroup::query()->where('deleted', '<>', true);
 
             foreach ($filters as $filter => $value) {
                 if (!is_null($value)) {
                     switch ($filter) {
                         case 'id':
+                        case 'user_id':
                             $query->where($filter, (int) $value);
                             break;
                         case 'name':
-                        case 'email':
-                        case 'role':
                             $query->where($filter, (string) $value);
                             break;
                         case 'active':
@@ -78,24 +76,24 @@ class UserController extends Controller {
                 }
             }
 
-            $users = $query->get();
+            $companiesGroups = $query->get();
 
-            if ($users->isEmpty()) {
+            if ($companiesGroups->isEmpty()) {
                 return response()->json([
-                    'message' => 'Error on listing users.',
-                    'errors'  => 'User(s) not found.'
+                    'message' => 'Error on listing company(ies) group(s).',
+                    'errors'  => 'Company(ies) group(s) not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
             return response()->json([
                 'limit' => $filters['limit'],
-                'total' => $users->count(),
-                'data'  => $users
+                'total' => $companiesGroups->count(),
+                'data'  => $companiesGroups
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on listing users.',
+                'message' => 'Error on listing company(ies) group(s).',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -103,44 +101,39 @@ class UserController extends Controller {
 
     public function edit(Request $request, int $id) {
         $validator = Validator::make($request->all(), [
-            'name'      => 'nullable|string',
-            'email'     => 'nullable|string',
-            'password'  => 'nullable|string',
-            'role'      => 'nullable|string',
-            'active'    => 'nullable|boolean',
+            'name'   => 'nullable|string',
+            'active' => 'nullable|boolean'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Error on editing user.',
+                'message' => 'Error on editing company group.',
                 'errors'  => $validator->errors()
             ], 422, [], JSON_UNESCAPED_SLASHES);
         }
 
         try {
-            $user = User::where('id', $id)->where('deleted', '<>', true)->first();
 
-            if (!$user) {
+            $companyGroup = CompanyGroup::where('id', $id)->first();
+
+            if (!$companyGroup) {
                 return response()->json([
-                    'message' => 'Error on editing user.',
-                    'errors'  => 'User not found.'
+                    'message' => 'Error on editing company group.',
+                    'errors'  => 'Company group not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->role = $request->role;
-            $user->active = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
-            $user->save();
+            $companyGroup->name = $request->name;
+            $companyGroup->active = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
+            $companyGroup->save();
 
             return response()->json([
-                'message' => 'User edited has successfully!'
+                'message' => 'Company group created has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on editing user.',
+                'message' => 'Error on editing company group.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -148,25 +141,25 @@ class UserController extends Controller {
 
     public function delete(Request $request, int $id) {
         try {
-            $user = User::where('id', $id)->where('deleted', '<>', true)->first();
+            $companyGroup = CompanyGroup::where('id', $id)->first();
 
-            if (!$user) {
+            if (!$companyGroup) {
                 return response()->json([
-                    'message' => 'Error on deleting user.',
-                    'errors'  => 'User not found.'
+                    'message' => 'Error on deleting company group.',
+                    'errors'  => 'Company group not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
-            $user->deleted = true;
-            $user->save();
+            $companyGroup->deleted = true;
+            $companyGroup->save();
 
             return response()->json([
-                'message' => 'User deleted has successfully!'
+                'message' => 'Company group deleted has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on deleting user.',
+                'message' => 'Error on deleting company group.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
