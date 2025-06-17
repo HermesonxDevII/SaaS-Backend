@@ -1,45 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
+use App\Models\CompanySegment;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class UserController extends Controller {
+class CompanySegmentController extends Controller {
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
-            'name'      => 'required|string',
-            'email'     => 'required|string|email|unique:users,email',
-            'password'  => 'required|string',
-            'role'      => 'required|string'
+            'user_id' => [
+                'required',
+                'integer',
+                Rule::exists('users', 'id')->where('active', true)
+            ],
+            'name' => 'required|string'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Error on creating user.',
+                'message' => 'Error on creating company segment.',
                 'errors'  => $validator->errors()
             ], 422, [], JSON_UNESCAPED_SLASHES);
         }
 
         try {
-            User::create([
-                'name'      => $request->name,
-                'email'     => $request->email,
-                'password'  => Hash::make($request->password),
-                'role'      => $request->role
+            CompanySegment::create([
+                'user_id' => $request->user_id,
+                'name'    => $request->name
             ]);
 
             return response()->json([
-                'message' => 'User created has successfully!'
+                'message' => 'Company segment created has successfully!'
             ], 201, [], JSON_UNESCAPED_SLASHES);
-
+            
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on creating user.',
-                'errors'  => $e->getMessage()
+                'message' => 'Error on creating company segment.'
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
     }
@@ -47,25 +45,23 @@ class UserController extends Controller {
     public function list(Request $request) {
         try {
             $filters = [
-                'id'     => $request->query('id'),
-                'name'   => $request->query('name'),
-                'email'  => $request->query('email'),
-                'role'   => $request->query('role'),
-                'active' => $request->query('active'),
-                'limit'  => $request->query('limit')
+                'id'      => $request->query('id'),
+                'user_id' => $request->query('user_id'),
+                'name'    => $request->query('name'),
+                'active'  => $request->query('active'),
+                'limit'   => $request->query('limit')
             ];
 
-            $query = User::query()->where('deleted', '<>', true);
+            $query = CompanySegment::query()->where('deleted', '<>', true);
 
             foreach ($filters as $filter => $value) {
                 if (!is_null($value)) {
                     switch ($filter) {
                         case 'id':
+                        case 'user_id':
                             $query->where($filter, (int) $value);
                             break;
                         case 'name':
-                        case 'email':
-                        case 'role':
                             $query->where($filter, (string) $value);
                             break;
                         case 'active':
@@ -78,24 +74,24 @@ class UserController extends Controller {
                 }
             }
 
-            $users = $query->get();
+            $companiesSegments = $query->get();
 
-            if ($users->isEmpty()) {
+            if ($companiesSegments->isEmpty()) {
                 return response()->json([
-                    'message' => 'Error on listing users.',
-                    'errors'  => 'User(s) not found.'
+                    'message' => 'Error on listing companies segments',
+                    'errors'  => 'Company(ies) segment(s) not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
             return response()->json([
                 'limit' => $filters['limit'],
-                'total' => $users->count(),
-                'data'  => $users
+                'total' => $companiesSegments->count(),
+                'data'  => $companiesSegments
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on listing users.',
+                'message' => 'Error on listing companies segments',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -103,44 +99,38 @@ class UserController extends Controller {
 
     public function edit(Request $request, int $id) {
         $validator = Validator::make($request->all(), [
-            'name'      => 'nullable|string',
-            'email'     => 'nullable|string',
-            'password'  => 'nullable|string',
-            'role'      => 'nullable|string',
-            'active'    => 'nullable|boolean',
+            'name'   => 'nullable|string',
+            'active' => 'nullable|boolean'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Error on editing user.',
+                'message' => 'Error on editing company segment.',
                 'errors'  => $validator->errors()
             ], 422, [], JSON_UNESCAPED_SLASHES);
         }
 
         try {
-            $user = User::where('id', $id)->where('deleted', '<>', true)->first();
+            $companySegment = CompanySegment::where('id', $id)->first();
 
-            if (!$user) {
+            if (!$companySegment) {
                 return response()->json([
-                    'message' => 'Error on editing user.',
-                    'errors'  => 'User not found.'
+                    'message' => 'Error on editing company segment.',
+                    'errors'  => 'Company Segment not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->role = $request->role;
-            $user->active = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
-            $user->save();
+            $companySegment->name = $request->name;
+            $companySegment->active = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
+            $companySegment->save();
 
             return response()->json([
-                'message' => 'User edited has successfully!'
+                'message' => 'Company segment edited has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on editing user.',
+                'message' => 'Error on editing company segment.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -148,25 +138,25 @@ class UserController extends Controller {
 
     public function delete(Request $request, int $id) {
         try {
-            $user = User::where('id', $id)->where('deleted', '<>', true)->first();
+            $companySegment = CompanySegment::where('id', $id)->first();
 
-            if (!$user) {
+            if (!$companySegment) {
                 return response()->json([
-                    'message' => 'Error on deleting user.',
-                    'errors'  => 'User not found.'
+                    'message' => 'Error on deleting company segment.',
+                    'errors'  => 'Company segment not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
-            $user->deleted = true;
-            $user->save();
+            $companySegment->deleted = true;
+            $companySegment->save();
 
             return response()->json([
-                'message' => 'User deleted has successfully!'
+                'message' => 'Company segment deleted has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on deleting user.',
+                'message' => 'Error on deleting company segment.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
