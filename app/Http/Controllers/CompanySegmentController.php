@@ -47,7 +47,6 @@ class CompanySegmentController extends Controller {
             $filters = [
                 'id'      => $request->query('id'),
                 'user_id' => $request->query('user_id'),
-                'name'    => $request->query('name'),
                 'active'  => $request->query('active'),
                 'limit'   => $request->query('limit')
             ];
@@ -60,9 +59,6 @@ class CompanySegmentController extends Controller {
                         case 'id':
                         case 'user_id':
                             $query->where($filter, (int) $value);
-                            break;
-                        case 'name':
-                            $query->where($filter, (string) $value);
                             break;
                         case 'active':
                             $query->where($filter, filter_var($value, FILTER_VALIDATE_BOOLEAN));

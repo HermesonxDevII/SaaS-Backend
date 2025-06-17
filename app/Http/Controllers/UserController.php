@@ -118,7 +118,7 @@ class UserController extends Controller {
         }
 
         try {
-            $user = User::where('id', $id)->where('deleted', '<>', true)->first();
+            $user = User::where('id', $id)->first();
 
             if (!$user) {
                 return response()->json([

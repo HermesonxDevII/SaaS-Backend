@@ -49,7 +49,6 @@ class CompanyGroupController extends Controller {
             $filters = [
                 'id'      => $request->query('id'),
                 'user_id' => $request->query('user_id'),
-                'name'    => $request->query('name'),
                 'active'  => $request->query('active'),
                 'limit'   => $request->query('limit')
             ];
@@ -62,9 +61,6 @@ class CompanyGroupController extends Controller {
                         case 'id':
                         case 'user_id':
                             $query->where($filter, (int) $value);
-                            break;
-                        case 'name':
-                            $query->where($filter, (string) $value);
                             break;
                         case 'active':
                             $query->where($filter, filter_var($value, FILTER_VALIDATE_BOOLEAN));
@@ -128,7 +124,7 @@ class CompanyGroupController extends Controller {
             $companyGroup->save();
 
             return response()->json([
-                'message' => 'Company group created has successfully!'
+                'message' => 'Company group edited has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
