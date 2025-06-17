@@ -68,6 +68,7 @@ class AuthController extends Controller {
                 ], 401, [], JSON_UNESCAPED_SLASHES);
             }
 
+            $user->tokens()->delete();
             $token = $user->createToken('auth')->plainTextToken;
 
             return response()->json([
