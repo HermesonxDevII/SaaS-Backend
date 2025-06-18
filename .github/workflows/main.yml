@@ -15,7 +15,7 @@ jobs:
       - name: Code checkout
         uses: actions/checkout@v4
 
-      - name: PHP setup
+      - name: Install PHP setup
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
@@ -37,31 +37,26 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_DB: ${{ secrets.DB_DATABASE }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        ports:
-          - ${{ secrets.DB_PORT }}:${{ secrets.DB_PORT }}
-        options: >-
-          --health-cmd="pg_isready"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     steps:
       - name: Code checkout
         uses: actions/checkout@v4
 
-      - name: PHP setup
+      - name: Install PHP setup
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: pdo_pgsql
           coverage: none
+
+      - name: Creating database with docker
+        run: |
+          docker run -d \
+            --name postgres
+            -p 5432:5432
+            -e POSTGRES_USER=${{ secrets.DB_USER }}
+            -e POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}
+            -e POSTGRES_DB=${{ secrets.DB_DATABASE }}
+            postgres:15
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
@@ -95,13 +90,13 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t saas-backend:production .
+        run: docker build -t ${{ secrets.APPLICATION_NAME }}:production .
 
       - name: Tag and push image
         run: |
-          docker tag saas-backend:production ${{ secrets.DOCKERHUB_USERNAME }}/saas-backend:production
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/saas-backend:production
+          docker tag ${{ secrets.APPLICATION_NAME }}:production ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:production
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:production
 
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
-          docker tag saas-backend:production ${{ secrets.DOCKERHUB_USERNAME }}/saas-backend:$SHORT_SHA
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/saas-backend:$SHORT_SHA
+          docker tag ${{ secrets.APPLICATION_NAME }}:production ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:$SHORT_SHA
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.APPLICATION_NAME }}:$SHORT_SHA
