@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\{ HasMany, BelongsTo };
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{ Model, Builder };
 use App\Models\{ User, Ticket };
 
 class ResponsibleTeam extends Model {
@@ -17,6 +17,13 @@ class ResponsibleTeam extends Model {
         'active',
         'deleted'
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('user', function (Builder $builder) {
+            $builder->where('user_id', loggedUser()->id);
+        });
+    }
 
     public $timestamps = true;
 
