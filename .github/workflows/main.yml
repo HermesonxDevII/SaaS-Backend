@@ -22,15 +22,11 @@ jobs:
           extensions: pdo_pgsql, mbstring
           coverage: none
 
-      - name: Composer cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
       - name: Install PHP dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Install Node dependencies
+        run: yarn install
 
   tests:
     name: Run tests
@@ -58,8 +54,14 @@ jobs:
             -e POSTGRES_DB=${{ secrets.DB_DATABASE }} \
             postgres:15
 
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Install Node dependencies
+        run: yarn install
+
+      - name: Build assets
+        run: yarn build
 
       - name: Set environment and run migrations
         run: |
