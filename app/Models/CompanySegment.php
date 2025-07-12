@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Relations\{ HasMany, BelongsTo };
 use Illuminate\Database\Eloquent\Model;
+use App\Models\{ User, Company };
 
 class CompanySegment extends Model {
+
     protected $connection = 'pgsql';
     protected $table = 'companies_segments';
     protected $primaryKey = 'id';
@@ -17,4 +19,14 @@ class CompanySegment extends Model {
     ];
 
     public $timestamps = true;
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class);
+    }
 }

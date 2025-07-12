@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\{ Validator, Log };
 use Illuminate\Validation\Rule;
+use App\Models\CompanySegment;
 use Illuminate\Http\Request;
-use App\Models\CompanyGroup;
 
-class CompanyGroupController extends Controller {
+class CompanySegmentController extends Controller {
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
             'user_id' => [
@@ -20,26 +20,24 @@ class CompanyGroupController extends Controller {
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Error on creating company group.',
+                'message' => 'Error on creating company segment.',
                 'errors'  => $validator->errors()
             ], 422, [], JSON_UNESCAPED_SLASHES);
         }
 
         try {
-
-            CompanyGroup::create([
+            CompanySegment::create([
                 'user_id' => $request->user_id,
                 'name'    => $request->name
             ]);
 
             return response()->json([
-                'message' => 'Company group created has successfully!'
+                'message' => 'Company segment created has successfully!'
             ], 201, [], JSON_UNESCAPED_SLASHES);
-
+            
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on creating company group.',
-                'errors'  => $e->getMessage()
+                'message' => 'Error on creating company segment.'
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
     }
@@ -53,7 +51,7 @@ class CompanyGroupController extends Controller {
                 'limit'   => $request->query('limit')
             ];
 
-            $query = CompanyGroup::query()->where('deleted', '<>', true);
+            $query = CompanySegment::query()->where('deleted', '<>', true);
 
             foreach ($filters as $filter => $value) {
                 if (!is_null($value)) {
@@ -72,24 +70,24 @@ class CompanyGroupController extends Controller {
                 }
             }
 
-            $companiesGroups = $query->get();
+            $companiesSegments = $query->get();
 
-            if ($companiesGroups->isEmpty()) {
+            if ($companiesSegments->isEmpty()) {
                 return response()->json([
-                    'message' => 'Error on listing company(ies) group(s).',
-                    'errors'  => 'Company(ies) group(s) not found.'
+                    'message' => 'Error on listing companies segments',
+                    'errors'  => 'Company(ies) segment(s) not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
             return response()->json([
                 'limit' => $filters['limit'],
-                'total' => $companiesGroups->count(),
-                'data'  => $companiesGroups
+                'total' => $companiesSegments->count(),
+                'data'  => $companiesSegments
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on listing company(ies) group(s).',
+                'message' => 'Error on listing companies segments',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -103,33 +101,32 @@ class CompanyGroupController extends Controller {
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Error on editing company group.',
+                'message' => 'Error on editing company segment.',
                 'errors'  => $validator->errors()
             ], 422, [], JSON_UNESCAPED_SLASHES);
         }
 
         try {
+            $companySegment = CompanySegment::where('id', $id)->first();
 
-            $companyGroup = CompanyGroup::where('id', $id)->first();
-
-            if (!$companyGroup) {
+            if (!$companySegment) {
                 return response()->json([
-                    'message' => 'Error on editing company group.',
-                    'errors'  => 'Company group not found.'
+                    'message' => 'Error on editing company segment.',
+                    'errors'  => 'Company Segment not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
-            $companyGroup->name = $request->name;
-            $companyGroup->active = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
-            $companyGroup->save();
+            $companySegment->name = $request->name;
+            $companySegment->active = filter_var($request->active, FILTER_VALIDATE_BOOLEAN);
+            $companySegment->save();
 
             return response()->json([
-                'message' => 'Company group edited has successfully!'
+                'message' => 'Company segment edited has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on editing company group.',
+                'message' => 'Error on editing company segment.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }
@@ -137,25 +134,25 @@ class CompanyGroupController extends Controller {
 
     public function delete(Request $request, int $id) {
         try {
-            $companyGroup = CompanyGroup::where('id', $id)->first();
+            $companySegment = CompanySegment::where('id', $id)->first();
 
-            if (!$companyGroup) {
+            if (!$companySegment) {
                 return response()->json([
-                    'message' => 'Error on deleting company group.',
-                    'errors'  => 'Company group not found.'
+                    'message' => 'Error on deleting company segment.',
+                    'errors'  => 'Company segment not found.'
                 ], 404, [], JSON_UNESCAPED_SLASHES);
             }
 
-            $companyGroup->deleted = true;
-            $companyGroup->save();
+            $companySegment->deleted = true;
+            $companySegment->save();
 
             return response()->json([
-                'message' => 'Company group deleted has successfully!'
+                'message' => 'Company segment deleted has successfully!'
             ], 200, [], JSON_UNESCAPED_SLASHES);
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Error on deleting company group.',
+                'message' => 'Error on deleting company segment.',
                 'errors'  => $e->getMessage()
             ], 500, [], JSON_UNESCAPED_SLASHES);
         }

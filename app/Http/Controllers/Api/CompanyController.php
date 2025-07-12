@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\{ Validator, Log };
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Company;

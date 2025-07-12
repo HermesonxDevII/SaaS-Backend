@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\{ Validator, Hash, Log };
 use Illuminate\Http\Request;
 use App\Models\User;
 

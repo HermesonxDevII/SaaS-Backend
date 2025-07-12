@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CompanyGroupController;
-use App\Http\Controllers\CompanySegmentController;
+use App\Http\Controllers\Api\{
+    CompanyController,
+    UserController,
+    AuthController,
+    CompanyGroupController,
+    CompanySegmentController
+};
 
 Route::prefix('/auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
