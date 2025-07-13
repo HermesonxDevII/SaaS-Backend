@@ -74,11 +74,6 @@ class User extends Authenticatable {
         return $this->hasMany(ResponsibleTeam::class);
     }
 
-    public function roles(): HasMany
-    {
-        return $this->HasMany(Role::class);
-    }
-
     public function solicitationTypes(): HasMany
     {
         return $this->hasMany(SolicitationType::class);

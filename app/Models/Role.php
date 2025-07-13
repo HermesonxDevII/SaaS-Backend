@@ -1,27 +1,30 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
 class Role extends Model {
 
+    use HasFactory;
+    
     protected $connection = 'pgsql';
     protected $table = 'roles';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
-        'user_id',
         'active',
         'deleted'
     ];
 
     public $timestamps = true;
 
-    public function user(): BelongsTo
+    public function users(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 }

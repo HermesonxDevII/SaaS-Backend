@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{ HasMany, BelongsTo };
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{ Model, Builder };
 use App\Models\{
     User,
     CompanyGroup,
@@ -12,6 +14,8 @@ use App\Models\{
 
 class Company extends Model {
 
+    use HasFactory;
+    
     protected $connection = 'pgsql';
     protected $table = 'companies';
     protected $primaryKey = 'id';
@@ -34,6 +38,13 @@ class Company extends Model {
         'active',
         'deleted'
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('user', function (Builder $builder) {
+            $builder->where('user_id', loggedUser()->id);
+        });
+    }
 
     public $timestamps = true;
 

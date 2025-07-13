@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{ HasMany, BelongsTo };
 use Illuminate\Database\Eloquent\{ Model, Builder };
 use App\Models\{ User, Ticket };
 
 class ResponsibleTeam extends Model {
 
+    use HasFactory;
+    
     protected $connection = 'pgsql';
     protected $table = 'responsible_teams';
     protected $primaryKey = 'id';
