@@ -4,7 +4,14 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{ Company, Priority, ResponsibleTeam, SolicitationType };
+use App\Models\{
+    Company,
+    CompanyGroup,
+    CompanySegment,
+    Priority,
+    ResponsibleTeam,
+    SolicitationType
+};
 
 class RegistrationController extends Controller
 {
@@ -14,6 +21,8 @@ class RegistrationController extends Controller
         
         $values = collect([
             ['name' => 'Empresas',              'quantity' => Company::count()],
+            ['name' => 'Grupos de Empresas',    'quantity' => CompanyGroup::count()],
+            ['name' => 'Segmentos de Empresas', 'quantity' => CompanySegment::count()],
             ['name' => 'Equipes Responsáveis',  'quantity' => ResponsibleTeam::count()],
             ['name' => 'Prioridades',           'quantity' => Priority::count()],
             ['name' => 'Tipos de Solicitações', 'quantity' => SolicitationType::count()]

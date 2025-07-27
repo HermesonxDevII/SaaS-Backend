@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{ User };
+use App\Http\Requests\User\{ StoreRequest, UpdateRequest };
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
 
     }
@@ -33,7 +34,7 @@ class UserController extends Controller
 
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
 
     }

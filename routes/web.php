@@ -3,7 +3,14 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\{
+    CompanyController,
+    CompanyGroupController,
+    CompanySegmentController,
+    PriorityController,
     RegistrationController,
+    ResponsibleTeamController,
+    RoleController,
+    SolicitationTypeController,
     TicketController,
     UserController
 };
@@ -21,21 +28,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    /*
-        - Rotas do ::resource
-
-        - Route::get('/', [Controller::class, 'index'])->name('tickets.index');
-        - Route::get('/create', [Controller::class, 'create'])->name('tickets.create');
-        - Route::post('/', [Controller::class, 'store'])->name('tickets.store');
-        - Route::get('/{model}', [Controller::class, 'show'])->name('tickets.show');
-        - Route::get('/{model}/edit', [Controller::Class, 'edit'])->name('tickets.edit');
-        - Route::put('/{model}', [Controller::class, 'update'])->name('tickets.update');
-        - Route::delete('/{model}', [Controller::Class, 'destroy'])->name('tickets.destroy');
-    */
-
-    Route::resource('registrations', RegistrationController::class);
-    Route::resource('tickets', TicketController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('/companies', CompanyController::class);
+    Route::resource('/company-groups', CompanyGroupController::class);
+    Route::resource('/company-segments', CompanySegmentController::class);
+    Route::resource('/priorities', PriorityController::class);
+    Route::resource('/registrations', RegistrationController::class);
+    Route::resource('/responsible-teams', ResponsibleTeamController::class);
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/solicitation-types', SolicitationTypeController::class);
+    Route::resource('/tickets', TicketController::class);
+    Route::resource('/users', UserController::class);
 });
 
 require __DIR__.'/auth.php';

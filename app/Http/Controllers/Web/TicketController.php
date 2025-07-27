@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Http\Requests\Ticket\{ StoreRequest, UpdateRequest };
 
 class TicketController extends Controller
 {
@@ -18,7 +19,7 @@ class TicketController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
 
     }
@@ -33,7 +34,7 @@ class TicketController extends Controller
 
     }
 
-    public function update(Request $request, Ticket $ticket)
+    public function update(UpdateRequest $request, Ticket $ticket)
     {
 
     }
