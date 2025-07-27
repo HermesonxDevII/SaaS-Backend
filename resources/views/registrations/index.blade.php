@@ -15,7 +15,7 @@
                         </x-slot>
 
                         <x-slot name="body">
-                            <x-registration::table-body :objects="$values" />
+                            <x-registration::table-body :values="$values" />
                         </x-slot>
                     </x-registration::table>
                 </div>

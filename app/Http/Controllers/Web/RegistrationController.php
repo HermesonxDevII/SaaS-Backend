@@ -20,15 +20,40 @@ class RegistrationController extends Controller
         $fields = ['Nome', 'Quantidade', 'Ações'];
         
         $values = collect([
-            ['name' => 'Empresas',              'quantity' => Company::count()],
-            ['name' => 'Grupos de Empresas',    'quantity' => CompanyGroup::count()],
-            ['name' => 'Segmentos de Empresas', 'quantity' => CompanySegment::count()],
-            ['name' => 'Equipes Responsáveis',  'quantity' => ResponsibleTeam::count()],
-            ['name' => 'Prioridades',           'quantity' => Priority::count()],
-            ['name' => 'Tipos de Solicitações', 'quantity' => SolicitationType::count()]
+            [
+                'name' => 'Empresas',
+                'quantity' => Company::count(),
+                'route' => route('companies.index')
+            ],
+            [
+                'name' => 'Grupos de Empresas',   
+                'quantity' => CompanyGroup::count(),
+                'route' => route('company-groups.index')
+            ],
+            [
+                'name' => 'Segmentos de Empresas',
+                'quantity' => CompanySegment::count(),
+                'route' => route('company-segments.index')
+            ],
+            [
+                'name' => 'Equipes Responsáveis', 
+                'quantity' => ResponsibleTeam::count(),
+                'route' => route('responsible-teams.index')
+            ],
+            [
+                'name' => 'Prioridades',          
+                'quantity' => Priority::count(),
+                'route' => route('priorities.index')
+            ],
+            [
+                'name' => 'Tipos de Solicitações',
+                'quantity' => SolicitationType::count(),
+                'route' => route('solicitation-types.index')
+            ],
         ])->map(function ($item) {
             return (object) $item;
         });
+
 
         return view('registrations.index', compact('fields', 'values'));
     }
