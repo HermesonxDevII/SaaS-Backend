@@ -47,7 +47,7 @@
             label="Grupo *"
             for="company_group"
             name="company_group"
-            :options="$companies_groupies"
+            :options="$companies_groups"
             placeholder="Selecione um Grupo"
             required
         />

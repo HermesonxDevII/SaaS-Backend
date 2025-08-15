@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{ HasMany, BelongsTo };
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{ Model, Builder };
 use App\Models\{ User, Company };
 
 class CompanyGroup extends Model {
@@ -27,6 +27,14 @@ class CompanyGroup extends Model {
         'deleted' => 'boolean'
     ];
     
+    protected static function booted()
+    {
+        static::addGlobalScope('user', function (Builder $builder) {
+            $builder->where('user_id', loggedUser()->id)
+                ->where('deleted', '<>', true);
+        });
+    }
+
     public $timestamps = true;
 
     public function user(): BelongsTo

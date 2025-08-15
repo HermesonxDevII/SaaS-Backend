@@ -9,14 +9,16 @@ use App\Http\Requests\CompanyGroup\{ StoreRequest, UpdateRequest };
 
 class CompanyGroupController extends Controller
 {
-        public function index(Request $request)
+    public function index(Request $request)
     {
+        $companies_groups = CompanyGroup::all();
 
+        return view('companies-groups.index', compact('companies_groups'));
     }
 
     public function create(Request $request)
     {
-
+        return view('companies-groups.create');
     }
 
     public function store(StoreRequest $request)

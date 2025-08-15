@@ -20,9 +20,9 @@ class CompanyController extends Controller
     public function create(Request $request)
     {
         $companies_segments = CompanySegment::all();
-        $companies_groupies = CompanyGroup::all();
+        $companies_groups = CompanyGroup::all();
 
-        return view('companies.create', compact('companies_segments', 'companies_groupies'));
+        return view('companies.create', compact('companies_segments', 'companies_groups'));
     }
 
     public function store(StoreRequest $request)
@@ -58,9 +58,9 @@ class CompanyController extends Controller
     public function edit(Request $request, Company $company)
     {
         $companies_segments = CompanySegment::all();
-        $companies_groupies = CompanyGroup::all();
+        $companies_groups = CompanyGroup::all();
 
-        return view('companies.edit', compact('company', 'companies_segments', 'companies_groupies'));
+        return view('companies.edit', compact('company', 'companies_segments', 'companies_groups'));
     }
 
     public function update(UpdateRequest $request, Company $company)
