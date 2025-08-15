@@ -30,17 +30,13 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        <x-icon-button link="{{ route('companies.show', $company->id) }}">
+                        <x-icons.components.link link="{{ route('companies.show', $company->id) }}">
                             <x-icons.eye />
-                        </x-icon-button>
+                        </x-icons.components.link>
                         
-                        <x-icon-button link="{{ route('companies.edit', $company->id) }}">
+                        <x-icons.components.link link="{{ route('companies.edit', $company->id) }}">
                             <x-icons.pen />
-                        </x-icon-button>
-                        
-                        <x-icon-button link="#">
-                            <x-icons.bin />
-                        </x-icon-button>
+                        </x-icons.components.link>
                     </td>
                 </tr>
             @endforeach

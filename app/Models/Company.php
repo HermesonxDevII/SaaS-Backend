@@ -47,7 +47,8 @@ class Company extends Model {
     protected static function booted()
     {
         static::addGlobalScope('user', function (Builder $builder) {
-            $builder->where('user_id', loggedUser()->id);
+            $builder->where('user_id', loggedUser()->id)
+                ->where('deleted', '<>', true);
         });
     }
 

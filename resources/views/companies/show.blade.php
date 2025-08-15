@@ -5,9 +5,9 @@
                 {{ __('Visualizar Empresa') }}
             </h2>
 
-            <x-link-button
-                link="{{ route('companies.index') }}"
-            > Voltar </x-link-button>
+            <x-link-button link="{{ route('companies.index') }}">
+                Voltar
+            </x-link-button>
         </div>
     </x-slot>
 
@@ -16,13 +16,16 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-end gap-2">
-                        <x-icon-button link="{{ route('companies.edit', $company->id) }}">
+                        <x-icons.components.link link="{{ route('companies.edit', $company->id) }}">
                             <x-icons.pen />
-                        </x-icon-button>
+                        </x-icons.components.link>
                         
-                        <x-icon-button link="#">
+                        <x-icons.components.button
+                            data-modal-target="popup-modal"
+                            data-modal-toggle="popup-modal"
+                        >
                             <x-icons.bin />
-                        </x-icon-button>
+                        </x-icons.components.button>
                     </div>
 
                     @include('companies.partials.show')
@@ -30,4 +33,8 @@
             </div>
         </div>
     </div>
+
+    <x-company::delete-modal
+        :company="$company"
+    />
 </x-app-layout>

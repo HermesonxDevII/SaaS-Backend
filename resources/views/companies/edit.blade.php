@@ -5,9 +5,7 @@
                 {{ __('Editar Empresa') }}
             </h2>
 
-            <x-link-button
-                link="{{ route('companies.index') }}"
-            > Voltar </x-link-button>
+            <x-link-button link="{{ route('companies.index') }}"> Voltar </x-link-button>
         </div>
     </x-slot>
 

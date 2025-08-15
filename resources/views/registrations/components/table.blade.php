@@ -20,9 +20,9 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        <x-icon-button link="{{ $value->route }}">
+                        <x-icons.components.link link="{{ $value->route }}">
                             <x-icons.eye />
-                        </x-icon-button>
+                        </x-icons.components.link>
                     </td>
                 </tr>
             @endforeach

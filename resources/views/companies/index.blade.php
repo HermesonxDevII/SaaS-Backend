@@ -17,9 +17,9 @@
                     <x-alerts />
                     
                     <div class="flex justify-end mb-5">
-                        <x-icon-button link="{{ route('companies.create') }}">
+                        <x-icons.components.link link="{{ route('companies.create') }}">
                             <x-icons.plus />
-                        </x-icon-button>
+                        </x-icons.components.link>
                     </div>
 
                     <x-company::table
