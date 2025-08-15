@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Company;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -22,7 +23,29 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'corporate_reason' => 'required|string',
+            'fantasy_name'     => 'required|string',
+            'cpf_cnpj'         => 'required|string|max:18',
+            'company_segment'  => [
+                'required',
+                'string',
+                Rule::exists('companies_segments', 'id')
+                    ->where('user_id', loggedUser()->id)
+            ],
+            'company_group'    => [
+                'required',
+                'string',
+                Rule::exists('companies_groups', 'id')
+                    ->where('user_id', loggedUser()->id)
+            ],
+            'street'           => 'nullable|string',
+            'number'           => 'nullable|string',
+            'neighborhood'     => 'nullable|string',
+            'postal_code'      => 'nullable|string|max:9',
+            'city'             => 'nullable|string',
+            'state'            => 'nullable|string',
+            'latitude'         => 'nullable|string',
+            'longitude'        => 'nullable|string',
         ];
     }
 }

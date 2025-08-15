@@ -5,13 +5,13 @@
     > {{ $label }} </label>
     
     <input
-        type="{{ $type ?? 'text' }}"
         name="{{ $name }}"
-        id="{{ $id ?? '' }}"
-        placeholder="{{ $placeholder ?? '' }}"
+        id="{{ $id ?? $name }}"
         value="{{ old($name, $value ?? '') }}"
-        @if(!empty($required) && $required) required @endif
-        @if(!empty($readonly) && $readonly) readonly @endif
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        {{ $attributes->merge([
+            'type'        => 'text',
+            'placeholder' => 'Digite um valor',
+            'class'       => 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5'
+        ]) }}
     />
 </div>

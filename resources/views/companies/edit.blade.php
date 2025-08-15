@@ -6,7 +6,7 @@
             </h2>
 
             <x-link-button
-                link="{{ url()->previous() }}"
+                link="{{ route('companies.index') }}"
             > Voltar </x-link-button>
         </div>
     </x-slot>

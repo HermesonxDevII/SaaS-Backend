@@ -48,6 +48,36 @@ class Company extends Model {
 
     public $timestamps = true;
 
+    public function getCpfCnpjAttribute($value)
+    {
+        if ($value) {
+            $value = preg_replace('/[^0-9]/', '', $value);
+
+            if (strlen($value) === 11) {
+                return preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $value);
+            } 
+            
+            if (strlen($value) === 14) {
+                return preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $value);
+            }
+
+            return $value;
+        }
+    }
+
+    public function getPostalCodeAttribute($value)
+    {
+        if ($value) {
+            $value = preg_replace('/[^0-9]/', '', $value);
+
+            if (strlen($value) === 8) {
+                return preg_replace('/(\d{5})(\d{3})/', '$1-$2', $value);
+            }
+
+            return $value;
+        }
+    }
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

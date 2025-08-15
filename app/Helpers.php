@@ -18,3 +18,10 @@ if (!function_exists('getStatus')) {
         }
     }
 }
+
+if (!function_exists('removeEspecialChar')) {
+    function removeEspecialChar(string $value): string
+    {
+        return preg_replace('/\D/', '', $value);
+    }
+}

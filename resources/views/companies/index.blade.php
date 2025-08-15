@@ -14,6 +14,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     
+                    <x-alerts />
+                    
                     <div class="flex justify-end mb-5">
                         <x-icon-button link="{{ route('companies.create') }}">
                             <x-icons.plus />

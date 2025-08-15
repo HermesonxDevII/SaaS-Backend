@@ -6,7 +6,7 @@
             </h2>
 
             <x-link-button
-                link="{{ url()->previous() }}"
+                link="{{ route('companies.index') }}"
             > Voltar </x-link-button>
         </div>
     </x-slot>
@@ -15,14 +15,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form
-                        action=""
-                        class="flex flex-col"
-                    >
-                        <div class="flex flex-row w-full">
-                            <x-input-with-label />
-                        </div>
-                    </form>
+                    @include('companies.partials.create')
                 </div>
             </div>
         </div>
