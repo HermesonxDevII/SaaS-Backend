@@ -5,7 +5,7 @@
                 {{ __('Empresas Cadastradas') }}
             </h2>
 
-            <x-link-button link="{{ url()->previous() }}"> Voltar </x-link-button>
+            <x-link-button link="{{ route('registrations.index') }}"> Voltar </x-link-button>
         </div>
     </x-slot>
 
