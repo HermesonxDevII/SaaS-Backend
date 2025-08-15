@@ -1,6 +1,6 @@
 <div class="mb-5 w-full">
     <label
-        for="{{ $for ?? '' }}"
+        for="{{ $for ?? $name }}"
         class="block ml-0.5 mb-2 text-sm font-medium text-gray-900"
     > {{ $label }} </label>
     

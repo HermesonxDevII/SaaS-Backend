@@ -36,6 +36,11 @@ class User extends Authenticatable {
         'deleted'
     ];
 
+    protected $casts = [
+        'active'  => 'boolean',
+        'deleted' => 'boolean'
+    ];
+    
     protected $hidden = [
         'password',
         'remember_token',

@@ -22,6 +22,11 @@ class CompanySegment extends Model {
         'deleted'
     ];
 
+    protected $casts = [
+        'active'  => 'boolean',
+        'deleted' => 'boolean'
+    ];
+    
     public $timestamps = true;
 
     public function user(): BelongsTo

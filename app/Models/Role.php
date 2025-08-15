@@ -21,6 +21,11 @@ class Role extends Model {
         'deleted'
     ];
 
+    protected $casts = [
+        'active'  => 'boolean',
+        'deleted' => 'boolean'
+    ];
+    
     public $timestamps = true;
 
     public function users(): HasMany

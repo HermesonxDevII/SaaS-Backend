@@ -117,7 +117,7 @@
             label="Status"
             for="status"
             name="status"
-            value="{{ $company->active === 1 ? 'Ativo' : 'Inativo' }}"
+            value="{{ $company->active ? 'Ativo' : 'Inativo' }}"
             readonly
         />
     </x-input-box>

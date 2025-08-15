@@ -26,7 +26,7 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        {{ $company->active === 1 ? 'Ativo' : 'Inativo' }}
+                        {{ $company->active ? 'Ativo' : 'Inativo' }}
                     </td>
 
                     <td class="px-6 py-4">

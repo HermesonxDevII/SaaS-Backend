@@ -39,6 +39,11 @@ class Company extends Model {
         'deleted'
     ];
 
+    protected $casts = [
+        'active'  => 'boolean',
+        'deleted' => 'boolean'
+    ];
+
     protected static function booted()
     {
         static::addGlobalScope('user', function (Builder $builder) {
