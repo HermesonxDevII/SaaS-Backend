@@ -17,7 +17,7 @@ class Ticket extends Model {
 
     use HasFactory;
     
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'tickets';
     protected $primaryKey = 'id';
 

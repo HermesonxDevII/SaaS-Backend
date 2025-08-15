@@ -11,7 +11,7 @@ class Role extends Model {
 
     use HasFactory;
     
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'roles';
     protected $primaryKey = 'id';
 

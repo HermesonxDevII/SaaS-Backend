@@ -11,7 +11,7 @@ class ResponsibleTeam extends Model {
 
     use HasFactory;
     
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'responsible_teams';
     protected $primaryKey = 'id';
 

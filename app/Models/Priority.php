@@ -11,7 +11,7 @@ class Priority extends Model {
 
     use HasFactory;
     
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'priorities';
     protected $primaryKey = 'id';
 

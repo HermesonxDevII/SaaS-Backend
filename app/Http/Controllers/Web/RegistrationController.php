@@ -17,44 +17,42 @@ class RegistrationController extends Controller
 {
     public function index(Request $request)
     {
-        $fields = ['Nome', 'Quantidade', 'Ações'];
-        
         $values = collect([
             [
-                'name' => 'Empresas',
+                'name'     => 'Empresas',
                 'quantity' => Company::count(),
-                'route' => route('companies.index')
+                'route'    => route('companies.index')
             ],
             [
-                'name' => 'Grupos de Empresas',   
+                'name'     => 'Grupos de Empresas',   
                 'quantity' => CompanyGroup::count(),
-                'route' => route('company-groups.index')
+                'route'    => route('company-groups.index')
             ],
             [
-                'name' => 'Segmentos de Empresas',
+                'name'     => 'Segmentos de Empresas',
                 'quantity' => CompanySegment::count(),
-                'route' => route('company-segments.index')
+                'route'    => route('company-segments.index')
             ],
             [
-                'name' => 'Equipes Responsáveis', 
+                'name'     => 'Equipes Responsáveis', 
                 'quantity' => ResponsibleTeam::count(),
-                'route' => route('responsible-teams.index')
+                'route'    => route('responsible-teams.index')
             ],
             [
-                'name' => 'Prioridades',          
+                'name'     => 'Prioridades',          
                 'quantity' => Priority::count(),
-                'route' => route('priorities.index')
+                'route'    => route('priorities.index')
             ],
             [
-                'name' => 'Tipos de Solicitações',
+                'name'     => 'Tipos de Solicitações',
                 'quantity' => SolicitationType::count(),
-                'route' => route('solicitation-types.index')
+                'route'    => route('solicitation-types.index')
             ],
         ])->map(function ($item) {
             return (object) $item;
         });
 
 
-        return view('registrations.index', compact('fields', 'values'));
+        return view('registrations.index', compact('values'));
     }
 }

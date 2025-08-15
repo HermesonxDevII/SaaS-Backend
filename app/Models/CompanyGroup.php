@@ -11,7 +11,7 @@ class CompanyGroup extends Model {
 
     use HasFactory;
     
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'companies_groups';
     protected $primaryKey = 'id';
 

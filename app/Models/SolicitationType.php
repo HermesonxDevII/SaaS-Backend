@@ -11,7 +11,7 @@ class SolicitationType extends Model {
 
     use HasFactory;
     
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'solicitation_types';
     protected $primaryKey = 'id';
 
