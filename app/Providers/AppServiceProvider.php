@@ -24,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::anonymousComponentPath(resource_path('views/companies/components'), 'company');
         Blade::anonymousComponentPath(resource_path('views/company-groups/components'), 'company-group');
         Blade::anonymousComponentPath(resource_path('views/company-segments/components'), 'company-segment');
+        Blade::anonymousComponentPath(resource_path('views/responsible-teams/components'), 'responsible-team');
     }
 }

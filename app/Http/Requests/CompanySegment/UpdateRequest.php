@@ -22,8 +22,20 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'required|string',
+            'name'   => 'nullable|string',
             'active' => 'nullable|boolean'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'active' => $this->boolean('active'),
+        ]);
     }
 }

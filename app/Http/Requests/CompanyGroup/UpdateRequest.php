@@ -26,4 +26,16 @@ class UpdateRequest extends FormRequest
             'active' => 'nullable|boolean'
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'active' => $this->boolean('active'),
+        ]);
+    }
 }
