@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-row justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Grupos de Empresas Cadastradas') }}
+                {{ __('Segmentos de Empresas Cadastradas') }}
             </h2>
 
             <x-link-button link="{{ route('registrations.index') }}"> Voltar </x-link-button>
@@ -17,13 +17,13 @@
                     <x-alerts />
                     
                     <div class="flex justify-end mb-5">
-                        <x-icons.components.link link="{{ route('company-groups.create') }}">
+                        <x-icons.components.link link="{{ route('company-segments.create') }}">
                             <x-icons.plus />
                         </x-icons.components.link>
                     </div>
 
-                    <x-company-group::table
-                        :company_groups="$company_groups"
+                    <x-company-segment::table
+                        :company_segments="$company_segments"
                     />
                 </div>
             </div>

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{ Model, Builder };
 use App\Models\{
     User,
     Company,
@@ -38,6 +38,14 @@ class Ticket extends Model {
         'active'  => 'boolean',
         'deleted' => 'boolean'
     ];
+    
+    protected static function booted()
+    {
+        static::addGlobalScope('user', function (Builder $builder) {
+            $builder->where('user_id', loggedUser()->id)
+                ->where('deleted', '<>', true);
+        });
+    }
     
     public $timestamps = true;
 

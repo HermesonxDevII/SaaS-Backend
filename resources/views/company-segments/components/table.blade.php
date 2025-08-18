@@ -1,4 +1,4 @@
-@props(['company_groups'])
+@props(['company_segments'])
 
 <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -11,22 +11,22 @@
         </thead>
 
         <tbody>
-            @foreach ($company_groups as $company_group)
+            @foreach ($company_segments as $company_segment)
                 <tr class="bg-white border-b border-gray-200">
                     <th scope="row" class="px-6 py-4">
-                        {{ $company_group->name }}
+                        {{ $company_segment->name }}
                     </th>
 
                     <td class="px-6 py-4">
-                        {{ $company_group->active ? 'Ativo' : 'Inativo' }}
+                        {{ $company_segment->active ? 'Ativo' : 'Inativo' }}
                     </td>
 
                     <td class="px-6 py-4">
-                        <x-icons.components.link link="{{ route('company-groups.show', $company_group->id) }}">
+                        <x-icons.components.link link="{{ route('company-segments.show', $company_segment->id) }}">
                             <x-icons.eye />
                         </x-icons.components.link>
                         
-                        <x-icons.components.link link="{{ route('company-groups.edit', $company_group->id) }}">
+                        <x-icons.components.link link="{{ route('company-segments.edit', $company_segment->id) }}">
                             <x-icons.pen />
                         </x-icons.components.link>
 
@@ -42,7 +42,7 @@
         </tbody>
     </table>
 
-    <x-company-group::delete-modal
-        :company_group="$company_group"
+    <x-company-segment::delete-modal
+        :company_segment="$company_segment"
     />
 </div>

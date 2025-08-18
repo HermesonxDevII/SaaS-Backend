@@ -11,9 +11,9 @@ class CompanyGroupController extends Controller
 {
     public function index(Request $request)
     {
-        $companies_groups = CompanyGroup::all();
+        $company_groups = CompanyGroup::all();
 
-        return view('company-groups.index', compact('companies_groups'));
+        return view('company-groups.index', compact('company_groups'));
     }
 
     public function create(Request $request)
@@ -49,7 +49,8 @@ class CompanyGroupController extends Controller
         $validatedData = $request->validated();
 
         $company_group->update([
-            'name' => $validatedData['name']
+            'name'   => $validatedData['name'],
+            'active' => filter_var($validatedData['active'], FILTER_VALIDATE_BOOLEAN)
         ]);
 
         return redirect()
