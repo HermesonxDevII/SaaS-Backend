@@ -13,36 +13,58 @@ class CompanyGroupController extends Controller
     {
         $companies_groups = CompanyGroup::all();
 
-        return view('companies-groups.index', compact('companies_groups'));
+        return view('company-groups.index', compact('companies_groups'));
     }
 
     public function create(Request $request)
     {
-        return view('companies-groups.create');
+        return view('company-groups.create');
     }
 
     public function store(StoreRequest $request)
     {
+        $validatedData = $request->validated();
 
+        loggedUser()->companyGroups()->create([
+            'name' => $validatedData['name']
+        ]);
+
+        return redirect()
+            ->route('company-groups.index')
+            ->with(['message' => 'Grupo de Empresas criado com sucesso!']);
     }
 
     public function show(Request $request, CompanyGroup $company_group)
     {
-
+        return view('company-groups.show', compact('company_group'));
     }
 
     public function edit(Request $request, CompanyGroup $company_group)
     {
-
+        return view('company-groups.edit', compact('company_group'));
     }
 
     public function update(UpdateRequest $request, CompanyGroup $company_group)
     {
+        $validatedData = $request->validated();
 
+        $company_group->update([
+            'name' => $validatedData['name']
+        ]);
+
+        return redirect()
+            ->route('company-groups.index')
+            ->with(['message' => 'Grupo de Empresas atualizado com sucesso!']);
     }
 
     public function destroy(Request $request, CompanyGroup $company_group)
     {
-        
+        $company_group->update([
+            'deleted' => true
+        ]);
+
+        return redirect()
+            ->route('company-groups.index')
+            ->with(['message' => 'Grupo de Empresas deletado com sucesso!']);
     }
 }

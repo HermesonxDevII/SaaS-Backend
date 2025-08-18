@@ -1,3 +1,5 @@
+@props(['company_group'])
+
 <div
     id="popup-modal"
     tabindex="-1"
@@ -15,7 +17,7 @@
             </button>
 
             <form
-                action="{{ route('companies.destroy', $company->id) }}"
+                action="{{ route('company-groups.destroy', $company_group->id) }}"
                 method="POST"
                 class="p-4 md:p-5 text-center"
             >
@@ -25,7 +27,7 @@
                 <x-icons.alert />
 
                 <h3 class="mb-5 text-lg font-normal text-gray-500">
-                    Tem certeza que deseja deletar essa EMPRESA?
+                    Tem certeza que deseja deletar esse GRUPO DE EMPRESAS?
                 </h3>
 
                 <x-button

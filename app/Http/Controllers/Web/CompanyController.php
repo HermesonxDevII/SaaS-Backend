@@ -91,7 +91,9 @@ class CompanyController extends Controller
 
     public function destroy(Request $request, Company $company)
     {
-        $company->update(['deleted' => true]);
+        $company->update([
+            'deleted' => true
+        ]);
 
         return redirect()
             ->route('companies.index')

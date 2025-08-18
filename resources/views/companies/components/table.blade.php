@@ -37,9 +37,20 @@
                         <x-icons.components.link link="{{ route('companies.edit', $company->id) }}">
                             <x-icons.pen />
                         </x-icons.components.link>
+
+                        <x-icons.components.button
+                            data-modal-target="popup-modal"
+                            data-modal-toggle="popup-modal"
+                        >
+                            <x-icons.bin />
+                        </x-icons.components.button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <x-company::delete-modal
+        :company="$company"
+    />
 </div>

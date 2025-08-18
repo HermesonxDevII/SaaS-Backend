@@ -1,7 +1,7 @@
 <x-alerts />
 
 <form
-    action="{{ route('companies.store') }}"
+    action="{{ route('company-groups.store') }}"
     method="POST"
     class="flex flex-col"
 >

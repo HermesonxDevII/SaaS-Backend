@@ -59,12 +59,12 @@ class User extends Authenticatable {
         return $this->hasMany(Company::class);
     }
 
-    public function companiesGroupies(): HasMany
+    public function companyGroups(): HasMany
     {
         return $this->hasMany(CompanyGroup::class);
     }
 
-    public function companies_segments(): HasMany
+    public function companySegments(): HasMany
     {
         return $this->hasMany(CompanySegment::class);
     }

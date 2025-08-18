@@ -22,16 +22,27 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        <x-icons.components.link link="{{ route('companies.show', $company_group->id) }}">
+                        <x-icons.components.link link="{{ route('company-groups.show', $company_group->id) }}">
                             <x-icons.eye />
                         </x-icons.components.link>
                         
-                        <x-icons.components.link link="{{ route('companies.edit', $company_group->id) }}">
+                        <x-icons.components.link link="{{ route('company-groups.edit', $company_group->id) }}">
                             <x-icons.pen />
                         </x-icons.components.link>
+
+                        <x-icons.components.button
+                            data-modal-target="popup-modal"
+                            data-modal-toggle="popup-modal"
+                        >
+                            <x-icons.bin />
+                        </x-icons.components.button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <x-company-group::delete-modal
+        :company_group="$company_group"
+    />
 </div>
