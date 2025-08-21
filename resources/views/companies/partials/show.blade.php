@@ -33,7 +33,7 @@
         <x-input-with-label
             label="Grupo"
             name="company_group"
-            :value="$company->companyGroup->name"
+            :value="$company->companyGroup?->name ?? 'Sem Grupo'"
             readonly
         />
     </x-input-box>

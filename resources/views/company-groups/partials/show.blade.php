@@ -9,6 +9,15 @@
     </x-input-box>
 
     <x-input-box>
+        <x-textarea-with-label
+            label="Descrição"
+            name="description"
+            :value="$company_group->description ?? 'Sem Descrição'"
+            readonly
+        />
+    </x-input-box>
+
+    <x-input-box>
         <x-input-with-label
             label="Status"
             name="status"

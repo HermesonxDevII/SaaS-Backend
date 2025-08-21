@@ -17,21 +17,21 @@
 
     <x-input-box>
         <x-input-with-label
-            label="Razão Social *"
+            label="Razão Social"
             name="corporate_reason"
             :value="$company->corporate_reason"
             placeholder="Digite a Razão Social"
         />
         
         <x-input-with-label
-            label="Nome Fantasia *"
+            label="Nome Fantasia"
             name="fantasy_name"
             :value="$company->fantasy_name"
             placeholder="Digite o Nome Fantasia"
         />
         
         <x-input-with-label
-            label="CPF/CNPJ *"
+            label="CPF/CNPJ"
             name="cpf_cnpj"
             :value="$company->cpf_cnpj"
             maxlength="18"
@@ -41,7 +41,7 @@
 
     <x-input-box>
         <x-select-with-label
-            label="Segmento *"
+            label="Segmento"
             name="company_segment"
             :value="$company->companySegment->id"
             :options="$companies_segments"
@@ -49,9 +49,9 @@
         />
         
         <x-select-with-label
-            label="Grupo *"
+            label="Grupo"
             name="company_group"
-            :value="$company->companyGroup->id"
+            :value="$company->companyGroup?->id"
             :options="$companies_groups"
             placeholder="Selecione um Grupo"
         />
@@ -132,11 +132,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const inputCpfCnpj = document.querySelector('[name="cpf_cnpj"]');
-        const inputCpfCnpj = document.querySelector('[:value="$company->cpf_cnpj"]');
         inputCpfCnpj.addEventListener('input', formatCpfCnpj);
 
         const inputPostalCode = document.querySelector('[name="postal_code"]');
-        const inputPostalCode = document.querySelector('[:value="$company->postal_code"]');
         inputPostalCode.addEventListener('input', formatPostalCode);
     });
 

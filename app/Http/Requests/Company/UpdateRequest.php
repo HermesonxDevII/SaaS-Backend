@@ -28,13 +28,13 @@ class UpdateRequest extends FormRequest
             'cpf_cnpj'         => 'nullable|string|max:18',
             'company_segment'  => [
                 'nullable',
-                'string',
+                'integer',
                 Rule::exists('companies_segments', 'id')
                     ->where('user_id', loggedUser()->id)
             ],
             'company_group'    => [
                 'nullable',
-                'string',
+                'integer',
                 Rule::exists('companies_groups', 'id')
                     ->where('user_id', loggedUser()->id)
             ],
@@ -58,7 +58,8 @@ class UpdateRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'active' => $this->boolean('active'),
+            'active'        => $this->boolean('active'),
+            'company_group' => $this->integer('company_group') ?: null,
         ]);
     }
 }

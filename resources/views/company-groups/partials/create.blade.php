@@ -9,10 +9,17 @@
     <x-input-box>
         <x-input-with-label
             label="Nome *"
-            for="name"
             name="name"
-            placeholder="Digite o Nome do Grupo"
+            placeholder="Digite um Nome"
             required
+        />
+    </x-input-box>
+
+    <x-input-box>
+        <x-textarea-with-label
+            label="Descrição"
+            name="description"
+            placeholder="Digite uma Descrição"
         />
     </x-input-box>
 

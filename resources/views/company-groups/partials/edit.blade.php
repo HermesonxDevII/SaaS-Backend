@@ -17,13 +17,22 @@
 
     <x-input-box>
         <x-input-with-label
-            label="Nome *"
+            label="Nome"
             name="name"
             :value="$company_group->name"
-            placeholder="Digite o nome"
+            placeholder="Digite um Nome"
         />
     </x-input-box>
 
+    <x-input-box>
+        <x-textarea-with-label
+            label="Descrição"
+            name="description"
+            :value="$company_group->description"
+            placeholder="Digite uma Descrição"
+        />
+    </x-input-box>
+    
     <div class="w-full flex flex-row justify-end gap-2">
         <x-button type="submit">Salvar</x-button>
         <x-link-button

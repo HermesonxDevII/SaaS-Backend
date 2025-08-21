@@ -19,6 +19,7 @@ return new class extends Migration
                   ->onDelete('cascade');
 
             $table->string('name');
+            $table->string('description')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('deleted')->default(false);
             $table->timestamps();

@@ -17,10 +17,19 @@
 
     <x-input-box>
         <x-input-with-label
-            label="Nome *"
+            label="Nome"
             name="name"
             :value="$company_segment->name"
-            placeholder="Digite o nome"
+            placeholder="Digite um Nome"
+        />
+    </x-input-box>
+
+    <x-input-box>
+        <x-textarea-with-label
+            label="Descrição"
+            name="description"
+            :value="$company_segment->description"
+            placeholder="Digite uma Descrição"
         />
     </x-input-box>
 

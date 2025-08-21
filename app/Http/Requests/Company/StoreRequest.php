@@ -28,13 +28,13 @@ class StoreRequest extends FormRequest
             'cpf_cnpj'         => 'required|string|max:18',
             'company_segment'  => [
                 'required',
-                'string',
+                'integer',
                 Rule::exists('companies_segments', 'id')
                     ->where('user_id', loggedUser()->id)
             ],
             'company_group'    => [
-                'required',
-                'string',
+                'nullable',
+                'integer',
                 Rule::exists('companies_groups', 'id')
                     ->where('user_id', loggedUser()->id)
             ],
@@ -47,5 +47,17 @@ class StoreRequest extends FormRequest
             'latitude'         => 'nullable|string',
             'longitude'        => 'nullable|string',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'company_group' => $this->integer('company_group') ?: null,
+        ]);
     }
 }

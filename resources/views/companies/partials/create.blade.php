@@ -44,12 +44,11 @@
         />
         
         <x-select-with-label
-            label="Grupo *"
+            label="Grupo"
             for="company_group"
             name="company_group"
             :options="$companies_groups"
             placeholder="Selecione um Grupo"
-            required
         />
     </x-input-box>
 

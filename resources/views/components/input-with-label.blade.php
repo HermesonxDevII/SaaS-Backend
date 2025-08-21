@@ -1,12 +1,12 @@
 <div class="mb-5 w-full">
     <label
-        for="{{ $for ?? $name }}"
+        for="{{ $name }}"
         class="block ml-0.5 mb-2 text-sm font-medium text-gray-900"
     > {{ $label }} </label>
     
     <input
         name="{{ $name }}"
-        id="{{ $id ?? $name }}"
+        id="{{ $name }}"
         value="{{ old($name, $value ?? '') }}"
         {{ $attributes->merge([
             'type'        => 'text',

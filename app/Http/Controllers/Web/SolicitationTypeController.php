@@ -26,7 +26,8 @@ class SolicitationTypeController extends Controller
         $validatedData = $request->validated();
 
         loggedUser()->solicitationTypes()->create([
-            'name' => $validatedData['name']
+            'name'        => $validatedData['name'],
+            'description' => $validatedData['description'],
         ]);
 
         return redirect()
@@ -49,7 +50,8 @@ class SolicitationTypeController extends Controller
         $validatedData = $request->validated();
 
         $solicitation_type->update([
-            'name'   => $validatedData['name'],
+            'name'          => $validatedData['name'],
+            'description'   => $validatedData['description'],
             'active' => filter_var($validatedData['active'], FILTER_VALIDATE_BOOLEAN)
         ]);
 
