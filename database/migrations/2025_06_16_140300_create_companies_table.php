@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('corporate_reason');
             $table->string('fantasy_name');
             $table->string('cpf_cnpj');
+            $table->string('telephone')->nullable();
             $table->string('street')->nullable();
             $table->string('number')->nullable();
             $table->string('neighborhood')->nullable();

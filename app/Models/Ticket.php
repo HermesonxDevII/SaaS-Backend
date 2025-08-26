@@ -39,6 +39,10 @@ class Ticket extends Model {
         'deleted'     => 'boolean',
         'attachments' => 'array'
     ];
+
+    protected $appends = [
+        'created_at_extenso'
+    ];
     
     protected static function booted()
     {
@@ -49,6 +53,13 @@ class Ticket extends Model {
     }
     
     public $timestamps = true;
+
+    public function getCreatedAtExtensoAttribute(): string
+    {
+        return $this->created_at
+            ->locale('pt_BR')
+            ->translatedFormat("d \\d\\e F \\d\\e Y \\à\\s H:i");
+    }
 
     public function user(): BelongsTo
     {

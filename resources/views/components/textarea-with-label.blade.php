@@ -1,3 +1,10 @@
+@props([
+    'name',
+    'label',
+    'value',
+    'rows'
+])
+
 <div class="mb-5 w-full">
     <label
         for="{{ $name }}"
@@ -7,7 +14,7 @@
     <textarea
         id="{{ $name }}"
         name="{{ $name }}"
-        rows="4"
+        rows="{{ $rows ?? '4' }}"
         {{ $attributes->merge([
             'placeholder' => 'Digite um valor',
             'class'       => 'block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 resize-none'

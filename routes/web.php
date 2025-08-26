@@ -36,7 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('/responsible-teams', ResponsibleTeamController::class);
     Route::resource('/roles', RoleController::class);
     Route::resource('/solicitation-types', SolicitationTypeController::class);
+
+    Route::put('/tickets/soft-update/{ticket}', [TicketController::class, 'soft_update'])->name('tickets.soft-update');
     Route::resource('/tickets', TicketController::class);
+    
     Route::resource('/users', UserController::class);
 });
 

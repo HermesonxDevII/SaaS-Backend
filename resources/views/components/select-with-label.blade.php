@@ -3,7 +3,8 @@
     'label',
     'placeholder',
     'options',
-    'optionField'
+    'optionField',
+    'value'
 ])
 
 <div class="mb-5 w-full">

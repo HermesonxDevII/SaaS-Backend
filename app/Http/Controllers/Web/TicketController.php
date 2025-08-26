@@ -12,7 +12,7 @@ use App\Models\{
     Priority,
     ResponsibleTeam
 };
-use App\Http\Requests\Ticket\{ StoreRequest, UpdateRequest };
+use App\Http\Requests\Ticket\{ StoreRequest, UpdateRequest, SoftUpdateRequest };
 
 class TicketController extends Controller
 {
@@ -58,7 +58,19 @@ class TicketController extends Controller
 
     public function show(Request $request, Ticket $ticket)
     {
-        return view('tickets.show', compact('ticket'));
+        $user = loggedUser();
+        $isEditable = $user->id === $ticket->user_id || $user->id === $ticket->user->employee_of;
+        $solicitation_types = SolicitationType::all();
+        $priorities = Priority::all();
+        $responsible_teams = ResponsibleTeam::all();
+
+        return view('tickets.show', compact(
+            'ticket',
+            'isEditable',
+            'solicitation_types',
+            'priorities',
+            'responsible_teams'
+        ));
     }
 
     public function edit(Request $request, Ticket $ticket)
@@ -67,6 +79,11 @@ class TicketController extends Controller
     }
 
     public function update(UpdateRequest $request, Ticket $ticket)
+    {
+
+    }
+
+    public function soft_update(SoftUpdateRequest $request, $ticket)
     {
 
     }

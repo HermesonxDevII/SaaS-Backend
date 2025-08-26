@@ -25,6 +25,7 @@ class Company extends Model {
         'corporate_reason',
         'fantasy_name',
         'cpf_cnpj',
+        'telephone',
         'street',
         'number',
         'neighborhood',
@@ -82,6 +83,16 @@ class Company extends Model {
 
             return $value;
         }
+    }
+
+    public function getAddressAttribute(): string
+    {
+        return $this->street
+            . ', ' . $this->number
+            . ', ' . $this->neighborhood
+            . ' - ' . $this->city
+            . ', ' . $this->state
+            . ' - ' . $this->postal_code;
     }
     
     public function user(): BelongsTo
