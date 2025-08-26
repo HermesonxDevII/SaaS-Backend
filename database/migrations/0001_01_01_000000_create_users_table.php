@@ -17,6 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            
+            $table->foreignId('employee_of')
+                    ->nullable()
+                  ->constrained('users')
+                  ->onDelete('cascade');
+
             $table->string('role')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('deleted')->default(false);

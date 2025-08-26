@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\{ BelongsTo, HasMany };
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -32,6 +32,7 @@ class User extends Authenticatable {
         'email',
         'password',
         'role',
+        'employee_of',
         'active',
         'deleted'
     ];
@@ -52,6 +53,16 @@ class User extends Authenticatable {
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function boss(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'employee_of');
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(User::class, 'employee_of');
     }
 
     public function companies(): HasMany

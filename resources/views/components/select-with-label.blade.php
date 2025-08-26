@@ -1,3 +1,11 @@
+@props([
+    'name',
+    'label',
+    'placeholder',
+    'options',
+    'optionField'
+])
+
 <div class="mb-5 w-full">
     <label
         for="{{ $name }}"
@@ -21,7 +29,7 @@
             <option
                 value="{{ $option->id }}"
                 @selected(old($name, $value ?? '') == $option->id)
-            > {{ $option->name }} </option>
+            > {{ $option->{$optionField ?? 'name'} }} </option>
         @endforeach
     </select>
 </div>

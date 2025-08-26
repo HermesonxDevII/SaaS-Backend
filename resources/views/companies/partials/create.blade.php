@@ -9,7 +9,6 @@
     <x-input-box>
         <x-input-with-label
             label="Razão Social *"
-            for="corporate_reason"
             name="corporate_reason"
             placeholder="Digite a Razão Social"
             required
@@ -17,7 +16,6 @@
         
         <x-input-with-label
             label="Nome Fantasia *"
-            for="fantasy_name"
             name="fantasy_name"
             placeholder="Digite o Nome Fantasia"
             required
@@ -25,7 +23,6 @@
         
         <x-input-with-label
             label="CPF/CNPJ *"
-            for="cpf_cnpj"
             name="cpf_cnpj"
             maxlength="18"
             placeholder="Digite o CPF/CNPJ"
@@ -36,7 +33,6 @@
     <x-input-box>
         <x-select-with-label
             label="Segmento *"
-            for="company_segment"
             name="company_segment"
             :options="$companies_segments"
             placeholder="Selecione um Segmento"
@@ -45,7 +41,6 @@
         
         <x-select-with-label
             label="Grupo"
-            for="company_group"
             name="company_group"
             :options="$companies_groups"
             placeholder="Selecione um Grupo"
@@ -55,21 +50,18 @@
     <x-input-box>
         <x-input-with-label
             label="Rua"
-            for="street"
             name="street"
             placeholder="Digite a Rua"
         />
         
         <x-input-with-label
             label="Número"
-            for="number"
             name="number"
             placeholder="Digite o Número"
         />
         
         <x-input-with-label
             label="Bairro"
-            for="neighborhood"
             name="neighborhood"
             placeholder="Digite o Bairro"
         />
@@ -78,7 +70,6 @@
     <x-input-box>
         <x-input-with-label
             label="CEP"
-            for="postal_code"
             name="postal_code"
             maxlength="9"
             placeholder="Digite o CEP"
@@ -86,14 +77,12 @@
 
         <x-input-with-label
             label="Cidade"
-            for="city"
             name="city"
             placeholder="Digite a Cidade"
         />
         
         <x-input-with-label
             label="Estado"
-            for="state"
             name="state"
             placeholder="Digite o Estado (UF)"
         />
@@ -102,14 +91,12 @@
     <x-input-box>
         <x-input-with-label
             label="Latitude"
-            for="latitude"
             name="latitude"
             placeholder="Digite a Latitude"
         />
         
         <x-input-with-label
             label="Longitude"
-            for="longitude"
             name="longitude"
             placeholder="Digite a Longitude"
         />

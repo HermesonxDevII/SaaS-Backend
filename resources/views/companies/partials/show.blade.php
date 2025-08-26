@@ -26,7 +26,7 @@
         <x-input-with-label
             label="Segmento"
             name="company_segment"
-            :value="$company->companySegment->name"
+            :value="$company->companySegment?->name ?? 'Sem Segmento'"
             readonly
         />
         

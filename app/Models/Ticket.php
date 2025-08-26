@@ -35,8 +35,9 @@ class Ticket extends Model {
     ];
 
     protected $casts = [
-        'active'  => 'boolean',
-        'deleted' => 'boolean'
+        'active'      => 'boolean',
+        'deleted'     => 'boolean',
+        'attachments' => 'array'
     ];
     
     protected static function booted()

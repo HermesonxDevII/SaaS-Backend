@@ -43,7 +43,7 @@
         <x-select-with-label
             label="Segmento"
             name="company_segment"
-            :value="$company->companySegment->id"
+            :value="$company->companySegment?->id"
             :options="$companies_segments"
             placeholder="Selecione um Segmento"
         />
