@@ -6,19 +6,38 @@
 
         <div class="w-[50%] flex flex-col gap-3">
             <div class="p-1 bg-white overflow-hidden shadow-sm sm:rounded-t-lg">
-                <div class="flex flex-col gap-0.5">
+                <div class="flex flex-row justify-between">
                     <x-ticket::tab-bar
                         :ticket="$ticket"
                     />
+
+                    <x-button
+                        fontSize="text-xs"
+                        width="px-3"
+                        type="submit"
+                    > Editar </x-button>
                 </div>
             </div>
 
             <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 @if ($isEditable)
                     <div class="flex flex-col gap-2">
-                        <div class="flex flex-col gap-0.5">
-                            <p class="ml-0.5 text-xs text-gray-500">Criado em: {{ $ticket->created_at_extenso }}</p>
-                            <p class="ml-0.5 text-xs text-gray-500">Criado por: {{ $ticket->user->name }} &lt;{{ $ticket->user->email }}&gt;</p>
+                        <div class="flex flex-row justify-between">
+                            <div class="flex flex-col gap-0.5">
+                                <p
+                                    class="ml-0.5 text-xs text-gray-500"
+                                > Criado em: {{ $ticket->created_at_extenso }} </p>
+
+                                <p
+                                    class="ml-0.5 text-xs text-gray-500"
+                                > Criado por: {{ $ticket->user->name }} &lt;{{ $ticket->user->email }}&gt; </p>
+                            </div>
+
+                            {{-- <x-button
+                                width="px-3"
+                                height="py-1"
+                                type="submit"
+                            >Salvar</x-button> --}}
                         </div>
 
                         <h2 class="ml-0.5 font-bold">{{ $ticket->title }}</h2>

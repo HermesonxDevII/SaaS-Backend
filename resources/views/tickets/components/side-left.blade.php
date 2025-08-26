@@ -43,6 +43,7 @@
     <x-textarea-with-label
         label="Endereço"
         name="address"
+        rows="3"
         :value="$company->address"
     />
 

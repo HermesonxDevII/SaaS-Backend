@@ -36,7 +36,8 @@ return new class extends Migration
             $table->foreignId('responsible_team_id')
                   ->constrained('responsible_teams')
                   ->onDelete('cascade');
-            
+
+            $table->string('status')->nullable();
             $table->longText('attachments')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('deleted')->default(false);

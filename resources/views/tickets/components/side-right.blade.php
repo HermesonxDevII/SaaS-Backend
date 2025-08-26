@@ -54,14 +54,16 @@
         @endif
     </div>
 
-    <x-input-with-label
-        label="Atribuído a"
-        name="attributed_to"
-        :value="$ticket->user->name"
-        readonly
-    />
-
     @if ($isEditable)
+        <x-input-with-label
+            label="Status"
+            name="status"
+            placeholder="Aguardando Atendimento"
+            x-model="formData.status"
+            @change="checkIfFormHasChanged()"
+            readonly
+        />
+
         <x-select-with-label
             label="Tipo de Solicitação"
             name="solicitation_type"
